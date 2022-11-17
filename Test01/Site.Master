@@ -65,16 +65,18 @@
             <br />
         </div>
         <div id="CategoryMenu" style="text-align: center">
-            <asp:ListView ID="catergoryList"
+            <asp:ListView ID="categoryList"
                 ItemType="Test01.Models.Category"
                 runat="server"
                 SelectMethod="GetCategories" >
                 <ItemTemplate>
-                    <b style="font-size:large; font-style:normal>
-                        <a href="/ProductList.aspx?id=<%#: Item.CategoryId %>"></a>
+                    <b style="font-size: large; font-style: normal">
+                        <a href="/ProductList.aspx?id=<%#: Item.CategoryId %>">
+                            <%#: Item.CategoryName %>
+                        </a>
                     </b>
                 </ItemTemplate>
-
+                <ItemSeparatorTemplate>  |  </ItemSeparatorTemplate>
             </asp:ListView>
         </div>
 
