@@ -1,11 +1,11 @@
 ﻿<%@ Page Title="Product Details" Language="C#" MasterPageFile="~/Site.Master"
     AutoEventWireup="true"
     CodeBehind="ProductDetails.aspx.cs"
-    Inherits="WingtipToys.ProductDetails" %>
+    Inherits="Test01.ProductDetails" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
     <asp:FormView ID="productDetail" runat="server"
-        ItemType="WingtipToys.Models.Product" SelectMethod="GetProduct"
+        ItemType="Test01.Models.Product" SelectMethod="GetProduct"
         RenderOuterTable="false">
         <ItemTemplate>
             <div>
@@ -25,8 +25,7 @@
                         <br />
                         <span><b>Price:</b>&nbsp;<%#: String.Format("{0:c}", Item.UnitPrice) %></span>
                         <br />
-                        <span><b>Product Number:</b>&nbsp;<%#:Item.ProductID 
-                        %></span>
+                        <span><b>Product Number:</b>&nbsp;<%#:Item.ProductID %></span>
                         <br />
                     </td>
                 </tr>
