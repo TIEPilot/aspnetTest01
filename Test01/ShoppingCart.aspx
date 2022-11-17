@@ -31,5 +31,16 @@
             <asp:Label ID="lblTtoal" runat="server" EnableViewState="false"></asp:Label>
         </strong>
     </div>
+    <br />
+    <table>
+        <tr>
+            <td>
+                <asp:Button ID="UpdateBtn" runat="server" Text="Update" OnClick="UpdateBtn_Click" />
+            </td>
+            <td>
+                <!--Checkout PlaceHolder-->
+            </td>
+        </tr>
+    </table>
 </asp:Content>
  

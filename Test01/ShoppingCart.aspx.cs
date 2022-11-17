@@ -6,6 +6,9 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using Test01.Logic;
 using Test01.Models;
+using System.Collections.Specialized;
+using System.Collections;
+using System.Web.ModelBinding;
 
 
 namespace Test01
@@ -27,6 +30,7 @@ namespace Test01
                     LabelTotalText.Text = "";
                     lblTtoal.Text = "";
                     ShoppingCartTitle.InnerText = "Shopping Cart is Empty";
+                    UpdateBtn.Visible = false;
                 }
             }
         }
@@ -36,7 +40,55 @@ namespace Test01
             ShoppingCartActions actions = new ShoppingCartActions();
             return actions.GetCartItems();
         }
-    
+        
+        public List<CartItem> UpdateCartItems()
+        {
+            using (ShoppingCartActions usersShoppingCart = new ShoppingCartActions())
+            {
+                String cartId = usersShoppingCart.getcartId();
+
+                ShoppingCartActions.ShoppingCartUpdates[] cartUpdates = new
+                ShoppingCartActions.ShoppingCartUpdates[CartList.Rows.Count];
+                for (int i = 0; i < CartList.Rows.Count; i++)
+                {
+                    IOrderedDictionary rowValues = new OrderedDictionary();
+                    rowValues = GetValues(CartList.Rows[i]);
+                    cartUpdates[i].ProductId = Convert.ToInt32(rowValues["ProductID"]);
+
+                    CheckBox cbRemove = new CheckBox();
+                    cbRemove = (CheckBox)CartList.Rows[i].FindControl("Remove");
+                    cartUpdates[i].RemoveItem = cbRemove.Checked;
+
+                    TextBox quantityTestBox = new TextBox();
+                    quantityTestBox = (TextBox)CartList.Rows[i].FindControl("PurchaseQuantity");
+                    cartUpdates[i].PurchaseQuantity = Convert.ToInt16(quantityTestBox.Text.ToString());
+                }
+                userSShoppingCart.UpdateShoppingCartDatabase(cartId, cartUpdates);
+                CartList.DataBind();
+                lblTtoal.Text = String.Format("{0:c}", userSShoppingCart.GetTotal());
+                return userSShoppingCart.GetCartItems();
+            }
+        }
+
+
+
+
+
+        public static IOrderedDictionary GetValues(GridViewRow row) 
+        {
+            IOrderedDictionary values = new OrderedDictionary();
+            foreach (DataControlFieldCell cell in row.Cells)
+            {
+                if (cell.Visible)
+                    cell.ContainingField.ExtractValuesFromCell(values, cell, row.RowState, true);
+            }
+            return values;
+        }
+
+        protected void UpdateBtn_Click(object sender, EventArgs e)
+        {
+            UpdateCartItems();
+        }
     
     }
 }

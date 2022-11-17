@@ -81,6 +81,9 @@ namespace Test01.Logic
                                cartItems.Product.UnitPrice).Sum();
             return total ?? decimal.Zero;
         }
+
+
+
         
     }
 }
