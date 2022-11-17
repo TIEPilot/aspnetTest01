@@ -70,6 +70,17 @@ namespace Test01.Logic
             return _db.ShoppingCartItems.Where(
                 c => c.CartId == ShoppingCardId).ToList();
         }
+
+        public decimal GetTotal()
+        {
+            ShoppingCardId = GetCartId();
+            decimal? total = decimal.Zero;
+            total = (decimal?)(from cartItems in _db.ShoppingCartItems
+                               where cartItems.CartId == ShoppingCardId
+                               select (int?)cartItems.Quantity *
+                               cartItems.Product.UnitPrice).Sum();
+            return total ?? decimal.Zero;
+        }
         
     }
 }
