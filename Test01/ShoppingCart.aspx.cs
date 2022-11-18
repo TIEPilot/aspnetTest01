@@ -45,7 +45,7 @@ namespace Test01
         {
             using (ShoppingCartActions usersShoppingCart = new ShoppingCartActions())
             {
-                String cartId = usersShoppingCart.getcartId();
+                String cartId = usersShoppingCart.GetCartId();
 
                 ShoppingCartActions.ShoppingCartUpdates[] cartUpdates = new
                 ShoppingCartActions.ShoppingCartUpdates[CartList.Rows.Count];
@@ -63,10 +63,10 @@ namespace Test01
                     quantityTestBox = (TextBox)CartList.Rows[i].FindControl("PurchaseQuantity");
                     cartUpdates[i].PurchaseQuantity = Convert.ToInt16(quantityTestBox.Text.ToString());
                 }
-                userSShoppingCart.UpdateShoppingCartDatabase(cartId, cartUpdates);
+                usersShoppingCart.UpdateShoppingCartDatabase(cartId, cartUpdates);
                 CartList.DataBind();
-                lblTtoal.Text = String.Format("{0:c}", userSShoppingCart.GetTotal());
-                return userSShoppingCart.GetCartItems();
+                lblTtoal.Text = String.Format("{0:c}", usersShoppingCart.GetTotal());
+                return usersShoppingCart.GetCartItems();
             }
         }
 
